@@ -50,17 +50,42 @@ EOF
     }
 
     post {
-
-        success {
-            echo 'Pipeline Successful!'
-        }
-
-        failure {
-            echo 'Pipeline Failed!'
-        }
-
-        always {
-            echo 'Pipeline Finished.'
-        }
+    always {
+        echo 'Pipeline Finished.'
     }
+
+    success {
+        echo 'Pipeline Successful!'
+        emailext(
+            to: 'YOUR_EMAIL@gmail.com',
+            subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+The Jenkins build completed successfully.
+
+Job: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+
+Status: SUCCESS
+"""
+        )
+    }
+
+    failure {
+        echo 'Pipeline Failed!'
+        emailext(
+            to: 'YOUR_EMAIL@gmail.com',
+            subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+The Jenkins build has failed.
+
+Job: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+
+Status: FAILURE
+"""
+        )
+    }
+}
 }
