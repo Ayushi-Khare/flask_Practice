@@ -1,16 +1,11 @@
 name: Flask CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - staging
-      - main
   release:
     types:
       - published
 
 jobs:
-
   build-test:
     runs-on: ubuntu-latest
 
@@ -34,17 +29,13 @@ jobs:
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
 
       - name: Run Tests
-        run: |
-          pytest
+        run: pytest
 
       - name: Build
-        run: |
-          echo "Build completed successfully"
+        run: echo "Build completed successfully"
 
   deploy-staging:
     needs: build-test
-    if: github.ref == 'refs/heads/staging'
-
     runs-on: ubuntu-latest
 
     steps:
@@ -53,13 +44,10 @@ jobs:
           echo "Deploying to Staging..."
 
   deploy-production:
-    needs: build-test
-    if: github.event_name == 'release'
-
+    needs: deploy-staging
     runs-on: ubuntu-latest
 
     steps:
       - name: Deploy to Production
         run: |
           echo "Deploying to Production..."
-
