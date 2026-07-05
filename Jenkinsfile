@@ -77,7 +77,7 @@ Status: SUCCESS
     failure {
         echo 'Pipeline Failed!'
         emailext(
-            to: 'YOUR_EMAIL@gmail.com',
+            to: 'ayushikhare2627@gmail.com',
             subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
             body: """
 The Jenkins build has failed.
