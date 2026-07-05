@@ -21,7 +21,7 @@ SECRET_KEY=$SECRET_KEY
 EOF
 
         echo "Installing dependencies..."
-        python3 -m pip install -r requirements.txt
+        pip3 install --break-system-packages -r requirements.txt
 
         echo "Contents of workspace:"
         ls -la
