@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        MONGO_URI = 'mongodb+srv://admin:HeroVired2026@jenkins.chwh8rm.mongodb.net/studentdb?retryWrites=true&w=majority&appName=Jenkins'
+        MONGO_URI = 'mongodb+srv://admin:HeroVired1234@jenkins.chwh8rm.mongodb.net/studentdb?retryWrites=true&w=majority&appName=Jenkins'
         SECRET_KEY = 'HeroVired123'
     }
 
