@@ -9,24 +9,27 @@ pipeline {
     stages {
 
         stage('Build') {
-            steps {
-                echo '========== BUILD =========='
+    steps {
+        echo '========== BUILD =========='
 
-                sh '''
-                echo "Creating .env file..."
+        sh '''
+        echo "Creating .env file..."
 
-                cat > .env <<EOF
+        cat > .env <<EOF
 MONGO_URI=$MONGO_URI
 SECRET_KEY=$SECRET_KEY
 EOF
 
-                echo "Contents of workspace:"
-                ls -la
+        echo "Installing dependencies..."
+        python3 -m pip install -r requirements.txt
 
-                python3 --version
-                '''
-            }
-        }
+        echo "Contents of workspace:"
+        ls -la
+
+        python3 --version
+        '''
+    }
+}
 
         stage('Test') {
             steps {
