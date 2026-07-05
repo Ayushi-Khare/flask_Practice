@@ -130,7 +130,6 @@ MIT License
 
 ---
 
-task completed
 
 
 
