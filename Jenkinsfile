@@ -2,17 +2,50 @@ pipeline {
     agent any
 
     stages {
-        stage('Environment Check') {
+
+        stage('Build') {
             steps {
-                echo 'Checking Jenkins environment...'
+                echo '========== BUILD =========='
 
                 sh '''
-                pwd
-                ls -la
-                python3 --version || python --version
-                pip3 --version || pip --version
+                python3 -m pip install --upgrade pip
+                pip3 install -r requirements.txt
                 '''
             }
+        }
+
+        stage('Test') {
+            steps {
+                echo '========== TEST =========='
+
+                sh '''
+                pytest
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo '========== DEPLOY =========='
+
+                sh '''
+                echo "Deploying application to staging..."
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline Successful!'
+        }
+
+        failure {
+            echo 'Pipeline Failed!'
+        }
+
+        always {
+            echo 'Pipeline Finished.'
         }
     }
 }
