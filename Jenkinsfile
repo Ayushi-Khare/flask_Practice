@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        MONGO_URI = 'mongodb+srv://admin:HeroVired2026@jenkins.chwh8rm.mongodb.net/studentdb?retryWrites=true&w=majority&appName=Jenkins'
+        SECRET_KEY = 'HeroVired123'
+    }
+
     stages {
 
         stage('Build') {
@@ -8,8 +13,17 @@ pipeline {
                 echo '========== BUILD =========='
 
                 sh '''
+                echo "Creating .env file..."
+
+                cat > .env <<EOF
+MONGO_URI=$MONGO_URI
+SECRET_KEY=$SECRET_KEY
+EOF
+
+                echo "Contents of workspace:"
+                ls -la
+
                 python3 --version
-                pip3 list
                 '''
             }
         }
