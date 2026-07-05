@@ -57,7 +57,7 @@ EOF
     success {
         echo 'Pipeline Successful!'
         emailext(
-            to: 'YOUR_EMAIL@gmail.com',
+            to: 'ayushikhare2627@gmail.com',
             subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
             body: """
 The Jenkins build completed successfully.
