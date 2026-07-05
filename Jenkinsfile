@@ -3,25 +3,50 @@ pipeline {
 
     stages {
 
-        stage('Check Python Environment') {
+        stage('Build') {
             steps {
+                echo '========== BUILD =========='
+
                 sh '''
-                echo "===== Python ====="
-                which python3 || true
-                python3 --version || true
-
-                echo "===== Pip ====="
-                which pip3 || true
-                pip3 --version || true
-
-                echo "===== Pytest ====="
-                which pytest || true
-                pytest --version || true
-
-                echo "===== Installed Packages ====="
-                pip3 list || true
+                python3 --version
+                pip3 list
                 '''
             }
+        }
+
+        stage('Test') {
+            steps {
+                echo '========== TEST =========='
+
+                sh '''
+                python3 -m pytest
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo '========== DEPLOY =========='
+
+                sh '''
+                echo "Deploying Flask application to Staging..."
+                '''
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo 'Pipeline Successful!'
+        }
+
+        failure {
+            echo 'Pipeline Failed!'
+        }
+
+        always {
+            echo 'Pipeline Finished.'
         }
     }
 }
