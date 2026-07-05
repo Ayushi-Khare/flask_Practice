@@ -8,8 +8,11 @@ pipeline {
                 echo '========== BUILD =========='
 
                 sh '''
-                python3 -m pip install --upgrade pip
-                pip3 install -r requirements.txt
+                python3 -m venv venv
+                . venv/bin/activate
+
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
                 '''
             }
         }
@@ -19,6 +22,8 @@ pipeline {
                 echo '========== TEST =========='
 
                 sh '''
+                . venv/bin/activate
+
                 pytest
                 '''
             }
@@ -29,13 +34,14 @@ pipeline {
                 echo '========== DEPLOY =========='
 
                 sh '''
-                echo "Deploying application to staging..."
+                echo "Deploying Flask Application to Staging..."
                 '''
             }
         }
     }
 
     post {
+
         success {
             echo 'Pipeline Successful!'
         }
