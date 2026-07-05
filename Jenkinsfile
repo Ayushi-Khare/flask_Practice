@@ -59,7 +59,7 @@ EOF
 
     success {
         echo 'Pipeline Successful!'
-        echo emailext(
+        echoemailext(
             to: 'ayushikhare2627@gmail.com',
             subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
             body: """
@@ -76,7 +76,7 @@ Status: SUCCESS
 
     failure {
         echo 'Pipeline Failed!'
-        echo emailext(
+        emailext(
             to: 'ayushikhare2627@gmail.com',
             subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
             body: """
